@@ -44,13 +44,13 @@ function Invoke-IntuneBackupClientApp {
 		
 			$fileName = ($clientApp.displayName).Split([IO.Path]::GetInvalidFileNameChars()) -join '_'
 			$clientAppDetails =  Invoke-MgRestMethod -Uri "$apiversion/deviceAppManagement/mobileApps/$($clientApp.id)"
-			$clientAppDetails | ConvertTo-Json -depth 3 | Out-File -LiteralPath "$path\Client Apps\$($clientAppType)_$($fileName).json" 
+			$clientAppDetails | ConvertTo-Json -depth 3 | Out-File -LiteralPath "$path\Client Apps\$($clientAppType)_$($fileName)_$($clientApp.id).json" 
 		
 			[PSCustomObject]@{
 				"Action" = "Backup"
 				"Type"   = "Client App"
 				"Name"   = $clientApp.displayName
-				"Path"   = "Client Apps\$($clientAppType)_$($fileName).json"
+				"Path"   = "Client Apps\$($clientAppType)_$($fileName)_$($clientApp.id).json"
 			}
 		}
 	}
